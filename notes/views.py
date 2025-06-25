@@ -15,6 +15,7 @@ def note_home(request):
             note = form.save(commit=False)
             note.author = request.user
             note.save()
+            print('saved file to:' note.file_upload.path)
             return redirect('note_home')
     else:
         form = NoteForm()
