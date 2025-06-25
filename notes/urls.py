@@ -8,7 +8,3 @@ urlpatterns = [
     path('delete/<int:note_id>/', views.note_delete, name='note_delete'),
     path('', views.note_list, name='note_list'),
 ]
-
-urlpatterns+=[
-    path('debug-media/', views.debug_media, name='debug_media'),
-]
