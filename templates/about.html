@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'About/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="about-background">
+    <div class="container">
+        <h1>About NoteLink-P</h1>
+        <p>Welcome to NoteShare, a platform designed to revolutionize the way students and professionals manage their notes.</p>
+
+        <div class="section">
+            <h2>About Our College</h2>
+            <p>
+                NoteShare is a semester project developed by students of <strong>Magura Polytechnic Institute (MAPI)</strong>. 
+                Our college is committed to fostering innovation and creativity among students, encouraging them to build solutions that address real-world challenges.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Why NoteShare?</h2>
+            <p>
+                In today's fast-paced world, managing information effectively is crucial. NoteShare provides a seamless way to create, organize, and share notes, 
+                empowering users to stay productive and focused. Whether you're a student, a teacher, or a professional, NoteShare is here to simplify your life.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Global Impact</h2>
+            <p>
+                Projects like NoteShare contribute to the global ecosystem by promoting digital transformation in education and productivity. 
+                By leveraging technology, we aim to bridge the gap between traditional learning methods and modern digital tools, making knowledge accessible to everyone.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Our Vision</h2>
+            <p>
+                Our vision is to create a world where knowledge is easily accessible, organized, and shareable. 
+                We believe that tools like NoteShare can play a significant role in shaping the future of education and collaboration.
+            </p>
+        </div>
+
+        <a href="/" class="cta">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

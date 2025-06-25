@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notes - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Note/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="notes-background">
+    <div class="container">
+        <h1>Note Portal</h1>
+        <p>Explore all the notes shared by users. You can also share your own notes to help others!</p>
+
+        <div class="share-note">
+            <button id="openShareModal" class="cta">Share a Note</button>
+        </div>
+
+        <div class="notes-grid">
+            <!-- Demo Note Card 1 -->
+            <div class="note-card">
+                <h2>Introduction to Python</h2>
+                <p>Learn the basics of Python programming, including syntax, variables, and loops.</p>
+                <a href="#" class="view-note">View Note</a>
+            </div>
+            <!-- Demo Note Card 2 -->
+            <div class="note-card">
+                <h2>Data Structures</h2>
+                <p>An overview of common data structures like arrays, linked lists, and trees.</p>
+                <a href="#" class="view-note">View Note</a>
+            </div>
+            <!-- Demo Note Card 3 -->
+            <div class="note-card">
+                <h2>Web Development Basics</h2>
+                <p>Understand the fundamentals of HTML, CSS, and JavaScript for building websites.</p>
+                <a href="#" class="view-note">View Note</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for sharing a note -->
+    <div id="shareNoteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeShareModal">&times;</span>
+            <form class="note-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Share a Note</h2>
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="content" placeholder="Write your note..." required></textarea>
+                <input type="file" name="file" accept=".pdf,.doc,.docx,.txt,.jpg,.png">
+                <button type="submit" class="cta">Share</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Modal open/close logic
+    const openBtn = document.getElementById('openShareModal');
+    const modal = document.getElementById('shareNoteModal');
+    const closeBtn = document.getElementById('closeShareModal');
+
+    openBtn.onclick = function() {
+        modal.style.display = "block";
+    }
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

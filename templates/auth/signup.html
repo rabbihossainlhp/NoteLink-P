@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="{% static 'Auth/Signup/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">
+    <h1>Create an Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group" id="form-group-select">
+            <div class="half-width">
+                <label for="roll">Roll Number</label>
+                <input type="text" id="roll" name="roll" required>
+            </div>
+            <div class="half-width">
+                <label for="depertment">Department</label>
+                <select id="depertment" name="depertment" required>
+                    <option value="" disabled selected hidden>Select Dept</option>
+                    <option value="EEE">EEE</option>
+                    <option value="ET">ET</option>
+                    <option value="CST">CST</option>
+                    <option value="MNT">MNT</option>
+                    <option value="RAC">RAC</option>
+                    <option value="FDT">FDT</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm_password" required>
+        </div>
+
+        <button type="submit" class="cta">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/users/login">Login here</a></p>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src='../static/toaster.js'></script>
+<script>
+    {% if messages %}
+        $(document).ready(function() {
+            {% for message in messages %}
+                toastr["{{ message.tags|default:'info' }}"]("{{ message|escapejs }}");
+            {% endfor %}
+        });
+    {% endif %}
+</script>
+{% endblock %}

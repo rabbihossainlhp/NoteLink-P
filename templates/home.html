@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Home/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home-background">
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Welcome to NoteLink-P</h1>
+        <p>A platform to create, manage, and share your notes with ease.</p>
+
+        {% if request.user.is_authenticated %}
+            <p>Welcome back, <span class='glow-username'>{{ request.user.username }}!</span></p>
+            <p>NoteShare helps you stay organized and productive by providing a seamless way to manage your notes. Explore your notes or create new ones to get started!</p>
+            <a href="/notes/notes_feed" class="cta">View Notes</a>
+        {% else %}
+            <p>Join NoteShare today and take control of your notes. Sign up now to get started!</p>
+            <a href="{% url 'signup' %}" class="cta">Get Started</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

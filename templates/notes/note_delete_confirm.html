@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Note - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Note/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="notes-background">
+    <div class="container" style="max-width: 500px; margin: 0 auto;">
+        <h1 style="margin-bottom: 18px;">Delete Note</h1>
+        <div class="delete-card">
+            <p style="font-size: 1.1rem; margin-bottom: 18px;">
+                Are you sure you want to delete <strong>"{{ note.title }}"</strong>?
+            </p>
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Yes, Delete</button>
+                <a href="{% url 'note_list' %}" class="cta">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="{% static 'Auth/Login/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Login to Your Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="roll">Roll/StudentId</label>
+            <input type="number" id="roll" name="roll" required>
+        </div>  
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="cta">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'signup' %}">Register here</a></p>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src='../static/toaster.js'></script>
+<script>
+    {% if messages %}
+        $(document).ready(function() {
+            {% for message in messages %}
+                toastr["{{ message.tags|default:'info' }}"]("{{ message|escapejs }}");
+            {% endfor %}
+        });
+    {% endif %}
+</script>
+{% endblock %}

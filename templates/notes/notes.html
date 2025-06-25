@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Notes - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Note/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="notes-background">
+    <div class="container">
+        <h1>Note Portal</h1>
+        <p>Explore all the notes shared by users. You can also share your own notes to help others!</p>
+
+        <!-- Share Note Button (only for logged-in users) -->
+        
+        <div class="share-note" style="display: flex; gap: 12px;">
+            {% if user.is_authenticated %}
+                <button id="openShareModal" class="cta">Share a Note</button>
+                <a href="{% url 'note_list' %}" class="cta manage-btn">Manage Notes</a>
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'note_home' %}" class="cta">Share a Note</a>
+            {% endif %}
+        </div>
+
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <span>Filter notes by Department:</span>
+            <div>
+                <a href="{% url 'note_home' %}" class="filter-btn {% if not selected_dept %}active{% endif %}">All</a>
+                <a href="?dept=EEE" class="filter-btn {% if selected_dept == 'EEE' %}active{% endif %}">EEE</a>
+                <a href="?dept=ET" class="filter-btn {% if selected_dept == 'ET' %}active{% endif %}">ET</a>
+                <a href="?dept=CST" class="filter-btn {% if selected_dept == 'CST' %}active{% endif %}">CST</a>
+                <a href="?dept=MNT" class="filter-btn {% if selected_dept == 'MNT' %}active{% endif %}">MNT</a>
+                <a href="?dept=RAC" class="filter-btn {% if selected_dept == 'RAC' %}active{% endif %}">RAC</a>
+                <a href="?dept=FDT" class="filter-btn {% if selected_dept == 'FDT' %}active{% endif %}">FDT</a>
+            </div>
+        </div>
+
+
+        <!-- Notes Grid -->
+        <div class="notes-grid">
+            {% for note in notes %}
+            <div class="note-card">
+                <h2>{{ note.title }}</h2>
+                <p>{{ note.content|truncatewords:20 }}</p>
+                {% if note.file_upload %}
+                    <a href="{{ note.file_upload.url }}" download class="download-btn">Download</a>
+                {% endif %}
+                <p class="note-meta">
+                    By <span class="note-author">{{ note.author.username }}</span>
+                    <span class="note-dept">({{ note.author.depertment }})</span>
+                    | {{ note.created_at|date:"M d, Y H:i" }}
+                </p>
+            </div>
+            {% empty %}
+            <p>No notes shared yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Modal for sharing a note (only for logged-in users) -->
+    {% if user.is_authenticated %}
+    <div id="shareNoteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeShareModal">&times;</span>
+            <form class="note-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Share a Note</h2>
+                {% if form.non_field_errors %}
+                    <div class="form-errors">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <div class="note-form-div">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    <input type="text" name="title" id="{{ form.title.id_for_label }}" value="{{ form.title.value|default_if_none:'' }}" placeholder="Title" required>
+                    {% for error in form.title.errors %}
+                        <div class="form-errors">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="note-form-div">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    <textarea name="content" id="{{ form.content.id_for_label }}" placeholder="Write something about your note..." required>{{ form.content.value|default_if_none:'' }}</textarea>
+                    {% for error in form.content.errors %}
+                        <div class="form-errors">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="note-form-div">
+                    <label for="{{ form.file_upload.id_for_label }}">Attachment (optional)</label>
+                    <input type="file" name="file_upload" id="{{ form.file_upload.id_for_label }}">
+                    {% for error in form.file_upload.errors %}
+                        <div class="form-errors">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="cta">Share</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+{{block.super}}
+{% if user.is_authenticated %}
+<script>
+    // Modal open/close logic
+    const openBtn = document.getElementById('openShareModal');
+    const modal = document.getElementById('shareNoteModal');
+    const closeBtn = document.getElementById('closeShareModal');
+
+    openBtn.onclick = function() {
+        modal.style.display = "block";
+    }
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>   
+{% endif %}
+{% endblock %}

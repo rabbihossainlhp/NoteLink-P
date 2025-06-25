@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NoteLink-P{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Base/base.css' %}">
+    {% block link %}{% endblock %}
+</head>
+<body>
+
+    <nav>
+        <div class="logo">NoteLink-P  📚</div>
+        
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/notes/notes_feed">Notes</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            
+            {% if request.user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="cta">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'signup' %}" class="cta">Register</a>
+                <a href="{% url 'login' %}" class="cta">Login</a>
+            {% endif %}
+        </ul>
+
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="/">Home</a>
+        <a href="/notes/notes_feed">Notes</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        {% if request.user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="cta">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'signup' %}" class="cta">Register</a>
+            <a href="{% url 'login' %}" class="cta">Login</a>
+        {% endif %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    {% block script%}
+        <script src="{% static 'Base/base.js' %}"></script> 
+    {% endblock %}
+</body>
+</html>

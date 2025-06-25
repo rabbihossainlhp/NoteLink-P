@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Note - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Note/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="notes-background">
+    <div class="container" style="max-width: 550px; margin: 0 auto;">
+        <h1 style="margin-bottom: 18px;">Edit Note</h1>
+        <a href="{% url 'note_list' %}" class="cta" style="margin-bottom: 5%; display: inline-block;">Back to Manage Notes</a>
+
+        <form method="post" enctype="multipart/form-data" class="note-form" style="background: rgba(255,255,255,0.93); border-radius: 12px; padding: 28px 18px; box-shadow: 0 4px 16px rgba(60,60,100,0.08);">
+            {% csrf_token %}
+            <div class="note-form-div">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                <input type="text" name="title" id="{{ form.title.id_for_label }}" value="{{ form.title.value|default_if_none:'' }}" placeholder="Title" required>
+                {% for error in form.title.errors %}
+                    <div class="form-errors">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="note-form-div">
+                <label for="{{ form.content.id_for_label }}">Content</label>
+                <textarea name="content" id="{{ form.content.id_for_label }}" placeholder="Write something about your note..." required>{{ form.content.value|default_if_none:'' }}</textarea>
+                {% for error in form.content.errors %}
+                    <div class="form-errors">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="note-form-div">
+                <label for="{{ form.file_upload.id_for_label }}">Attachment (optional)</label>
+                <input type="file" name="file_upload" id="{{ form.file_upload.id_for_label }}">
+                {% for error in form.file_upload.errors %}
+                    <div class="form-errors">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="cta" style="margin-top: 10px;">Save Changes</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

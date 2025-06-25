@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Notes - NoteLink-P{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'Note/notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="notes-background">
+    <div class="container">
+        <h1>Manage Your Notes</h1>
+        <a href="{% url 'note_home' %}" class="cta" style="margin-bottom: 18px;">Back to Notes Portal</a>
+        <div class="notes-grid">
+            {% for note in notes %}
+            <div class="note-card">
+                <h2>{{ note.title }}</h2>
+                <p>{{ note.content|truncatewords:20 }}</p>
+                {% if note.file_upload %}
+                    <a href="{{ note.file_upload.url }}" download class="download-btn">Download</a>
+                {% endif %}
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <a href="{% url 'note_edit' note.id %}" class="edit-btn">Edit</a>
+                    <a href="{% url 'note_delete' note.id %}" class="delete-btn">Delete</a>
+                </div>
+                <p class="note-meta">
+                    | {{ note.created_at|date:"M d, Y H:i" }}
+                </p>
+            </div>
+            {% empty %}
+            <p>You have not shared any notes yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

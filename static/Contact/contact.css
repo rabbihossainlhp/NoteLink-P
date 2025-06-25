@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contact-background {
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    padding-top: 100px; 
+    color: #fff;
+    text-align: center;
+}
+
+.contact-background .container {
+    max-width: 600px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-background h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.contact-background p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ddd;
+    line-height: 1.6;
+}
+
+.contact-background form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-background .form-group {
+    text-align: left;
+}
+
+.contact-background .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.contact-background .form-group input,
+.contact-background .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.contact-background .form-group input:focus,
+.contact-background .form-group textarea:focus {
+    border-color: #6a11cb;
+}
+
+.contact-background .cta {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-background .cta:hover {
+    background: #e6b800;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .contact-background .container {
+        padding: 20px;
+    }
+
+    .contact-background h1 {
+        font-size: 2rem;
+    }
+
+    .contact-background p {
+        font-size: 1rem;
+    }
+
+    .contact-background .cta {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-background .container {
+        padding: 15px;
+    }
+
+    .contact-background h1 {
+        font-size: 1.8rem;
+    }
+
+    .contact-background p {
+        font-size: 0.9rem;
+    }
+
+    .contact-background .cta {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+}
