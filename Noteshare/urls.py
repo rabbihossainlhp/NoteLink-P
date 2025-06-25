@@ -13,5 +13,4 @@ urlpatterns = [
     path('about/', about_view, name='about'), 
 ]
     
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
