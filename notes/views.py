@@ -3,6 +3,9 @@ from .models import Note
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from .forms import NoteForm
+from django.http import HttpResponse
+from django.conf import settings
+import os
 
 
 def note_home(request):
@@ -67,3 +70,11 @@ def note_delete(request, note_id):
         note.delete()
         return redirect('note_list')
     return render(request, 'notes/note_delete_confirm.html', {'note': note})
+
+
+def debug_media(request):
+    media_path = os.path.join(settings.MEDIA_ROOT, 'notes/notes_file')
+    if os.path.exists(media_path):
+        files = os.listdir(media_path)
+        return HttpResponse('<br>'.join(files))
+    return HttpResponse('No files found in media directory.')
