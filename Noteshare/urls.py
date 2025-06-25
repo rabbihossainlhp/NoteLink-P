@@ -17,4 +17,6 @@ urlpatterns = [
     path('debug-media/', debug_media, name='debug_media'),
 ]
     
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns +=[
+    path('media/<path:path>/', serve, {'document_root': settings.MEDIA_ROOT}),
+]
