@@ -13,7 +13,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'yourdomain.com',
+    'notelink-p.onrender.com',
     'localhost',
     '127.0.0.1'
 ]
